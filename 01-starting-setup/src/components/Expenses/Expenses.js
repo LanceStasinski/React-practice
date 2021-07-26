@@ -8,10 +8,15 @@ import "./Expenses.css";
 
 function Expenses(props) {
   const [filteredYear, setFilteredYear] = useState("2021");
+  console.log(typeof filteredYear);
 
   const onFilterExpensesHandler = (year) => {
     setFilteredYear(year);
   };
+
+  const filteredExpenses = props.data.filter(
+    (expense) => expense.date.getFullYear().toString() === filteredYear
+  );
 
   return (
     <Card className="expenses">
@@ -19,14 +24,18 @@ function Expenses(props) {
         currentSelection={filteredYear}
         onFilterExpenses={onFilterExpensesHandler}
       />
-      {props.data.map((expense) => (
-        <ExpenseItem
-          title={expense.title}
-          amount={expense.amount}
-          date={expense.date}
-        />
-      ))}
-
+      {filteredExpenses.length === 0 ? (
+        <p>No expenses found.</p>
+      ) : (
+        props.data.map((expense) => (
+          <ExpenseItem
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        ))
+      )}
     </Card>
   );
 }
