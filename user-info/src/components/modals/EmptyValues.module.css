@@ -1,0 +1,24 @@
+.empty-values {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.alert {
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+  max-width: 90%;
+  margin: 3rem auto;
+  border-radius: 12px;
+}
+
+.alert h2 {
+  background: #680068;
+  color: white;
+}
+
+.alert p {
+  height: 20vmin;
+}

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 
+import EmptyValues from "./modals/EmptyValues";
+
 import styles from "./InputForm.module.css";
 
 const InputForm = (props) => {
   const [userName, setUserName] = useState("");
-  const [age, setAge] = useState(""); //may need to change to number
+  const [age, setAge] = useState("");
+  const [noInput, setNoInput] = useState(false);
 
   const nameChangeHandler = (event) => {
     setUserName(event.target.value);
@@ -14,6 +17,12 @@ const InputForm = (props) => {
     setAge(event.target.value);
   };
 
+  const onOkay = () => {
+    setNoInput(false)
+  }
+
+  const alertEmpty = <EmptyValues onOkay={onOkay}/>
+
   const submitHandler = (event) => {
     event.preventDefault();
     const user = { userName: userName, age: age, id: Math.random().toString() };
@@ -22,8 +31,16 @@ const InputForm = (props) => {
     setAge("");
   };
 
+  const action = () => {
+    if (!noInput) {
+      return submitHandler;
+    }
+
+    return alertEmpty;
+  }
+
   return (
-    <form className={styles["input-form"]} onSubmit={submitHandler}>
+    <form className={styles["input-form"]} onSubmit={action}>
       <label>Username</label>
       <input type="text" onChange={nameChangeHandler} value={userName} />
       <label>Age (years)</label>
