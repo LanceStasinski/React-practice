@@ -1,0 +1,7 @@
+.output {
+  border: black solid 1pt;
+  border-radius: 12px;
+  list-style-type: none;
+  padding: 1.5rem;
+  margin: 0;
+}

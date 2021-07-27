@@ -34,7 +34,7 @@ const InputForm = (props) => {
         onChange={ageChangeHandler}
         value={age}
       />
-      <button type="submit">Add User</button>
+      <button className={styles.submit} type="submit">Add User</button>
     </form>
   );
 };
