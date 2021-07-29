@@ -15,14 +15,14 @@ const emailReducer = (state, action) => {
 };
 
 const passwordReducer = (state, action) => {
-  if (action.type === 'USER_INPUT') {
-    return { value: action.val, isValid: action.val.trim().length > 6}
+  if (action.type === "USER_INPUT") {
+    return { value: action.val, isValid: action.val.trim().length > 6 };
   }
-  if (action.type === 'INPUT_BLUR') {
-    return { value: action.val, isValid: action.val.trim().length > 6}
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.value, isValid: state.value.trim().length > 6 };
   }
-  return {value: '', isValid: false }
-}
+  return { value: "", isValid: false };
+};
 
 const Login = (props) => {
   // const [enteredEmail, setEnteredEmail] = useState("");
@@ -37,17 +37,15 @@ const Login = (props) => {
   });
 
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
-    value: '',
-    isValid: null
-  })
+    value: "",
+    isValid: null,
+  });
 
   const { isValid: emailIsValid } = emailState;
-  const { isValid: passwordIsValid } = passwordState
+  const { isValid: passwordIsValid } = passwordState;
   useEffect(() => {
     const identifier = setTimeout(
-      setFormIsValid(
-        emailIsValid && passwordIsValid
-      ),
+      setFormIsValid(emailIsValid && passwordIsValid),
       500
     );
 
@@ -65,7 +63,7 @@ const Login = (props) => {
   };
 
   const passwordChangeHandler = (event) => {
-    dispatchPassword({ type: 'USER_INPUT', val: event.target.value })
+    dispatchPassword({ type: "USER_INPUT", val: event.target.value });
 
     // setFormIsValid(event.target.value.trim().length > 6 && emailState.isValid);
   };
@@ -75,7 +73,7 @@ const Login = (props) => {
   };
 
   const validatePasswordHandler = () => {
-    dispatchPassword({ type: 'INPUT_BLUR' })
+    dispatchPassword({ type: "INPUT_BLUR" });
   };
 
   const submitHandler = (event) => {
