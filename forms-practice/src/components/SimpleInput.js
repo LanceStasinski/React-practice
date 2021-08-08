@@ -8,7 +8,7 @@ const SimpleInput = (props) => {
     valueChangeHandler: nameChangeHandler,
     inputBlurHandler: nameBlurHandler,
     reset: resetNameInput,
-  } = useInput(value => value.trim() !== '');
+  } = useInput((value) => value.trim() !== "");
 
   const {
     value: enteredEmail,
@@ -17,16 +17,13 @@ const SimpleInput = (props) => {
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
     reset: resetEmailInput,
-  } = useInput(value => value.includes('@'))
-
-
+  } = useInput((value) => value.includes("@"));
 
   let formIsValid = false;
 
   if (enteredNameIsValid && enteredEmailIsValid) {
     formIsValid = true;
   }
-
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
