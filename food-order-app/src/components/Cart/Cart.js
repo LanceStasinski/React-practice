@@ -12,6 +12,10 @@ const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const [submissionError, setSubmissionError] = useState({
+    hadError: false,
+    message: "",
+  });
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
@@ -30,19 +34,32 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    const response = await fetch(
-      "https://react-http-67e31-default-rtdb.firebaseio.com/orders.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          user: userData,
-          orderedItems: cartCtx.items,
-        }),
+    try {
+      const response = await fetch(
+        "https://react-http-67e31-default-rtdb.firebaseio.com/orders.json",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            user: userData,
+            orderedItems: cartCtx.items,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
       }
-    );
-    setIsSubmitting(false);
-    setDidSubmit(true);
-    cartCtx.clearCart();
+
+      setIsSubmitting(false);
+      setDidSubmit(true);
+      cartCtx.clearCart();
+    } catch (error) {
+      setIsSubmitting(false);
+      setSubmissionError({
+        hadError: true,
+        message: error.message,
+      });
+    }
   };
 
   const cartItems = (
@@ -100,11 +117,26 @@ const Cart = (props) => {
     </>
   );
 
+  const submitErrorModalContent = (
+    <>
+      <p>{submissionError.message}. Please try again.</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </>
+  );
+
   return (
     <Modal onClose={props.onClose}>
-      {!isSubmitting && !didSubmit && cartModalContent}
+      {!isSubmitting &&
+        !didSubmit &&
+        !submissionError.hadError &&
+        cartModalContent}
       {isSubmitting && isSubmittingModalContent}
       {!isSubmitting && didSubmit && didSubmitModalContent}
+      {submissionError.hadError && submitErrorModalContent}
     </Modal>
   );
 };
