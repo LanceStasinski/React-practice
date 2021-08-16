@@ -2,7 +2,7 @@ import QuoteList from "../components/quotes/QuoteList";
 
 const DUMMY_QUOTES = [
   {id: 'q1', author: 'Lance', text: 'Learning React is fun'},
-  {id: 'q1', author: 'LanceA', text: 'Learning React is great'},
+  {id: 'q2', author: 'LanceA', text: 'Learning React is great'},
 ]
 
 const AllQuotes = (props) => {
