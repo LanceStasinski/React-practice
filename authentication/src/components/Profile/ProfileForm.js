@@ -20,15 +20,15 @@ const ProfileForm = () => {
         body: JSON.stringify({
           idToken: authCtx.token,
           password: enteredNewPassword,
-          returnSecureToken: false,
+          returnSecureToken: true,
         }),
         headers: {
-          "Content-Type": "application/json",
+          "Content-type": "application/json",
         },
       }
     ).then(res => {
       //assume this always succeeds, usually you'd add error handling
-
+      console.log(res)
       history.replace('/')
     })
   };
