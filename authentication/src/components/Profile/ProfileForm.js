@@ -13,22 +13,20 @@ const ProfileForm = () => {
     event.preventDefault();
 
     const enteredNewPassword = newPasswordInputRef.current.value;
-    fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAeJYU5n8VZQQjXQp3KmEA2dGrJHJTbeP0",
-      {
+    fetch("https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAeJYU5n8VZQQjXQp3KmEA2dGrJHJTbeP0", {
         method: "POST",
         body: JSON.stringify({
           idToken: authCtx.token,
           password: enteredNewPassword,
-          returnSecureToken: true,
+          returnSecureToken: false
         }),
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
       }
     ).then(res => {
       //assume this always succeeds, usually you'd add error handling
-      console.log(res)
+      console.log(res.json())
       history.replace('/')
     })
   };
