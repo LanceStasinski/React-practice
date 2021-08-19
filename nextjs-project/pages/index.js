@@ -9,7 +9,7 @@ const DUMMY_MEETUPS = [
     description: "First meetup",
   },
   {
-    id: "m1",
+    id: "m2",
     title: "A Second meetup",
     image:
       "https://cdn.cdnparenting.com/articles/2018/08/602444213-H-696x476.webp",
