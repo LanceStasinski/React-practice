@@ -1,22 +1,10 @@
-import MeetupList from "../components/meetups/MeetupList";
+// import dotenv from "dotenv";
+import { MongoClient } from "mongodb";
 
-const DUMMY_MEETUPS = [
-  {
-    id: "m1",
-    title: "A first meetup",
-    image: "https://cdn.mos.cms.futurecdn.net/ntFmJUZ8tw3ULD3tkBaAtf.jpg",
-    address: "Some mountain",
-    description: "First meetup",
-  },
-  {
-    id: "m2",
-    title: "A Second meetup",
-    image:
-      "https://cdn.cdnparenting.com/articles/2018/08/602444213-H-696x476.webp",
-    address: "Some other mountain",
-    description: "Second meetup",
-  },
-];
+// dotenv.config();
+// const mongoPass = process.env.MONGO_PASS;
+
+import MeetupList from "../components/meetups/MeetupList";
 
 const HomePage = (props) => {
   return <MeetupList meetups={props.meetups} />;
@@ -33,10 +21,26 @@ const HomePage = (props) => {
 //   };
 // }
 
-export function getStaticProps() {
+export async function getStaticProps() {
+  const client = await MongoClient.connect(
+    `mongodb+srv://Lance:Ufr6vLmdHPI8j00A@cluster0.j7nwx.mongodb.net/meetups?retryWrites=true&w=majority`
+  );
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  const meetups = await meetupsCollection.find().toArray();
+
+  client.close();
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: meetups.map(meetup => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString()
+      })),
     },
     revalidate: 10 //update information every ten seconds if it were to change
   };
