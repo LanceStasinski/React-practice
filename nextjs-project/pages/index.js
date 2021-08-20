@@ -3,11 +3,20 @@ import { MongoClient } from "mongodb";
 
 // dotenv.config();
 // const mongoPass = process.env.MONGO_PASS;
-
+import Head from "next/head";
+import { Fragment } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 
 const HomePage = (props) => {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta name="description" content="Next.js practice project" />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </Fragment>
+  );
 };
 
 // export async function getServerSideProps(context) {
@@ -35,14 +44,14 @@ export async function getStaticProps() {
 
   return {
     props: {
-      meetups: meetups.map(meetup => ({
+      meetups: meetups.map((meetup) => ({
         title: meetup.title,
         address: meetup.address,
         image: meetup.image,
-        id: meetup._id.toString()
+        id: meetup._id.toString(),
       })),
     },
-    revalidate: 10 //update information every ten seconds if it were to change
+    revalidate: 10, //update information every ten seconds if it were to change
   };
 }
 
