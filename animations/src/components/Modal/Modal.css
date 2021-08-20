@@ -13,27 +13,29 @@
   transition: all 0.3s ease-out;
 }
 
-/* .ModalOpen {
+.ModalOpen {
   animation: openModal 0.4s ease-out forwards;
 }
 
 .ModalClosed {
   animation: closeModal 1s ease-out forwards;
-} */
+}
 
 /* .fade-slide-enter {
 } */
 
-.fade-slide-enter-active { /* the active classes are where the animations should go*/
+/* the active classes are where the animations should go*/
+
+/* .fade-slide-enter-active {
   animation: openModal 0.4s ease-out forwards;
-}
+} */
 
 /* .fade-slide-exit {
 } */
 
-.fade-slide-exit-active {
+/* .fade-slide-exit-active {
   animation: closeModal 1s ease-out forwards;
-}
+} */
 
 @keyframes openModal {
   0% {
