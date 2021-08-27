@@ -25,4 +25,4 @@ yarn start
 
 ```
 
-For the Next.js practice and project subdirectories, use `yarn dev` to start the development server and navigate to localhost 3030(http://localhost:3030/) to view the app.
+For the Next.js practice and project subdirectories, use `yarn dev` to start the development server and navigate to [localhost 3030](http://localhost:3030/) to view the app.
